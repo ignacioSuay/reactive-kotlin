@@ -1,0 +1,6 @@
+
+To run curl form windows use docker like
+docker run -it appropriate/curl -c curl http://169.254.254.58:8082/events/
+
+note: binding the ports like this didn't work:
+docker run -it appropriate/curl -p 8082:8082 -c curl http://localhost:8082/events/1
