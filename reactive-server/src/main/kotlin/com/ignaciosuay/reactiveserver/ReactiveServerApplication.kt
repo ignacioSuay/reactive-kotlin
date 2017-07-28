@@ -25,16 +25,6 @@ data class Event(val id: Int, val time: LocalDateTime)
 @RestController
 class ReactiveServer {
 
-//    @RequestMapping(path = arrayOf("/hola"), method = arrayOf(RequestMethod.GET))
-//    fun handleMessage(@RequestBody message: String): Flux<String> {
-//        val list = arrayOf("hola", "que tal")
-////        return Flux.fromStream(list.asSequence().asStream())
-//
-//        return Flux.just("Hola")
-//                .delayElements(Duration.ofMillis(1000))
-//
-//    }
-
     @GetMapping("/events/{id}")
     fun eventById(@PathVariable id: Int): Mono<Event> = Mono.just(Event(id, LocalDateTime.now()))
 
@@ -46,8 +36,6 @@ class ReactiveServer {
         val eventFlux = Flux.fromStream(stream)
                 .delayElements(Duration.ofSeconds(1))
 
-//        val interval = Flux.interval(Duration.ofSeconds(1))
-//        return Flux.zip(eventFlux, interval).map { it.t1 }
         return eventFlux
     }
 
