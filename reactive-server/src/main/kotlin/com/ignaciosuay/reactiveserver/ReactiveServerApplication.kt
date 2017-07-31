@@ -32,7 +32,10 @@ class ReactiveServer {
     @GetMapping(produces = arrayOf(MediaType.TEXT_EVENT_STREAM_VALUE), value = "/events")
     fun events(): Flux<Event> {
 
-        val stream = generateSequence(1) { it + 1 }.map { Event(it, LocalDateTime.now()) }.asStream()
+        val stream = generateSequence(1) { it + 1 }
+                .map { Event(it, LocalDateTime.now()) }
+                .asStream()
+
         val eventFlux = Flux.fromStream(stream)
                 .delayElements(Duration.ofSeconds(1))
 
