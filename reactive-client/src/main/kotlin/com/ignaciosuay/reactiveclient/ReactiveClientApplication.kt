@@ -1,6 +1,5 @@
 package com.ignaciosuay.reactiveclient
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -9,7 +8,6 @@ import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.bodyToFlux
 import java.time.LocalDateTime
 
-@JsonDeserialize
 data class Event(val id: Int, val time: LocalDateTime)
 
 @SpringBootApplication
@@ -22,12 +20,10 @@ class ReactiveClientApplication {
         client
                 .get()
                 .uri("/events")
-//                .accept(TEXT_EVENT_STREAM)
                 .retrieve()
                 .bodyToFlux<Event>()
-                .subscribe({ e -> println("my event" + e) })
+                .subscribe({ e -> println(e) })
     }
-
 }
 
 fun main(args: Array<String>) {
